@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head> <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Hen's Corner</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  font-family: Arial;
+   
+}
+#musicBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(10px);
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+/* LOADER */
+
+#loader{
+
+position:fixed;
+inset:0;
+
+background:
+linear-gradient(
+to bottom,
+#fff5fa,
+#ffeef5
+);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:999999;
+
+transition:1s;
+
+}
+
+.loader-text{
+
+font-size:58px;
+
+font-family:
+"Playfair Display";
+
+color:#d46b9a;
+
+animation:pulse 2s infinite;
+
+}
+
+
+
+/* HEADER */
+
+.header{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:96%;
+
+height:90px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:0 35px;
+
+background:
+rgba(255,255,255,.25);
+
+backdrop-filter:blur(10px);
+
+z-index:999;
+
+}
+
+.logo img{
+
+padding-top:15px;
+
+height:120px;
+
+}
+
+.nav{
+
+display:flex;
+
+gap:35px;
+
+margin-left:auto;
+
+align-items:center;
+
+}
+
+.nav a{
+
+text-decoration:none;
+
+font-family:
+"Cormorant Garamond";
+
+font-size:22px;
+
+font-weight:900;
+
+letter-spacing:.6px;
+
+color:#7a6b75;
+
+padding:10px 16px;
+
+border-radius:20px;
+
+position:relative;
+
+transition:.35s;
+
+}
+
+.nav a:hover{
+
+color:#d46b9a;
+
+background:
+rgba(255,182,209,.15);
+
+transform:
+translateY(-2px);
+
+}
+
+.nav a::after{
+
+content:'';
+
+position:absolute;
+
+left:15%;
+
+bottom:5px;
+
+width:0;
+
+height:2px;
+
+background:
+
+linear-gradient(
+90deg,
+#ff9ecb,
+#c084fc
+);
+
+transition:.35s;
+
+}
+
+.nav a:hover::after{
+
+width:70%;
+
+}
+
+/* BACKGROUND
+
+.bg{
+  position:fixed;
+  top:0;
+  left:0;
+
+  width:100vw;
+  height:90vh;
+justify-content:center;
+  align-items:center;
+  object-fit:cover;
+
+  z-index:-1;
+}*/
+.bg{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  width:100vw;
+}
+
+.bg img{
+  max-width:150%;
+  max-height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+
+/* MUSIC BUTTON */
+
+#musicBtn{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+
+  width:65px;
+  height:65px;
+
+  border:none;
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.35);
+  backdrop-filter:blur(12px);
+
+  color:#d46b9a;
+  font-size:32px;
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:0 8px 20px rgba(212,107,154,0.15);
+
+  transition:all .3s ease;
+
+  z-index:9999;
+}
+
+#musicBtn:hover{
+  transform:scale(1.08);
+  background:rgba(255,255,255,0.5);
+}
+
+.playing{
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<img class="bg" src="bg.png">
+
+<!-- LOADER -->
+
+<div id="loader">
+
+<div class="loader-text">
+<img src="./logo.png">
+</div>
+
+</div>
+
+<div class="header">
+
+  <div class="logo">
+    <img src="logo.png">
+  </div>
+
+  <div class="nav">
+  <a href="index.html">🎨 Trang chủ</a>
+  <a href="write.html">💌 Viết lưu bút</a>
+  <a href="say.html">🌙 Điều muốn nói</a>
+  <a href="memories.html">🌷 Kỷ niệm</a>
+  <a href="gallery.html">🌸 Ảnh</a>
+</div>
+
+</div>
+
+<script> 
+  
+/* LOADER */
+
+window.addEventListener(
+
+"load",
+
+()=>{
+
+setTimeout(()=>{
+
+const loader=
+document.getElementById(
+"loader"
+)
+
+loader.style.opacity="0"
+
+setTimeout(()=>{
+
+loader.remove()
+
+},1000)
+
+},1200)
+
+})
+</script>
+
+<button id="musicBtn">♫</button>
+
+
+<button onclick="testMusic()">Play Music</button>
+
+<script>
+
+
+
+let playing = false;
+const btn = document.getElementById("musicBtn");
+btn.addEventListener("click", () => {
+  if (window.music.paused) {
+    window.music.play();
+    btn.classList.add("playing");
+    btn.innerHTML = "❚❚";
+  } else {
+    window.music.pause();
+    btn.classList.remove("playing");
+    btn.innerHTML = "♫";
+  }
+});
+</script>
+<script src="music.js"></script>
+<script type="module" src="app.js"></script>
+
+
+</body>
+</html>

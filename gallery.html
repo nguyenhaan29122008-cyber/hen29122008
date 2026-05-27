@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ảnh của chúng ta</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== RESET ===== */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Nunito',sans-serif;
+background:
+linear-gradient(rgba(255,240,248,.25),rgba(255,240,248,.25)),
+url("./bg.png");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* MUSIC BUTTON */
+
+#musicBtn{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+
+  width:65px;
+  height:65px;
+
+  border:none;
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.35);
+  backdrop-filter:blur(12px);
+
+  color:#d46b9a;
+  font-size:32px;
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:0 8px 20px rgba(212,107,154,0.15);
+
+  transition:all .3s ease;
+
+  z-index:9999;
+}
+
+#musicBtn:hover{
+  transform:scale(1.08);
+  background:rgba(255,255,255,0.5);
+}
+
+.playing{
+  animation:pulse 2s infinite;
+}
+
+/* LOADER */
+
+#loader{
+
+position:fixed;
+inset:0;
+
+background:
+linear-gradient(
+to bottom,
+#fff5fa,
+#ffeef5
+);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:999999;
+
+transition:1s;
+
+}
+
+.loader-text{
+
+font-size:58px;
+
+font-family:
+"Playfair Display";
+
+color:#d46b9a;
+
+animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+/* HEADER */
+.header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:90px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 35px;
+background:linear-gradient(to bottom,rgba(255,245,250,.9),rgba(255,245,250,.55));
+backdrop-filter:blur(14px);
+z-index:999;
+}
+
+.logo img{
+height:120px;
+padding-top:15px;
+}
+
+.nav{
+display:flex;
+gap:35px;
+margin-left:auto;
+align-items:center;
+}
+
+.nav a{
+text-decoration:none;
+font-family:"Cormorant Garamond";
+font-size:22px;
+font-weight:900;
+color:#7a6b75;
+padding:10px 16px;
+border-radius:20px;
+transition:.3s;
+}
+
+.nav a:hover{
+background:rgba(255,182,209,.15);
+color:#d46b9a;
+}
+
+/* TITLE */
+.title-box{
+padding-top:130px;
+text-align:center;
+}
+
+.title-bg{
+display:inline-block;
+padding:18px 45px;
+border-radius:30px;
+background:rgba(255,250,252,.72);
+backdrop-filter:blur(12px);
+}
+
+.main-title{
+font-family:"Playfair Display";
+font-size:58px;
+color:#e37ca9;
+}
+
+.sub-title{
+margin-top:10px;
+font-size:18px;
+color:#8d7480;
+}
+
+/* LAYOUT */
+.photo-layout{
+width:100%;
+max-width:1400px;
+margin:auto;
+padding:40px 30px 80px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(420px,1fr));
+gap:35px;
+}
+
+/* CARD */
+.photo-box{
+padding:30px;
+border-radius:30px;
+background:linear-gradient(145deg,rgba(255,248,251,.96),rgba(255,240,247,.93));
+backdrop-filter:blur(10px);
+box-shadow:0 15px 35px rgba(212,107,154,.12);
+}
+
+/* TITLE */
+.photo-box h2{
+font-size:36px;
+color:#d86e9d;
+font-family:"Playfair Display";
+margin-bottom:20px;
+}
+
+/* UPLOAD */
+.upload-btn{
+padding:12px 22px;
+background:linear-gradient(90deg,#f6a5c3,#eb76a8);
+color:white;
+border-radius:18px;
+cursor:pointer;
+font-weight:700;
+display:inline-block;
+}
+
+.upload-btn input{
+display:none;
+}
+
+/* GALLERY */
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:16px;
+margin-top:20px;
+}
+
+.gallery-grid img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+.gallery-grid img:hover{
+transform:scale(1.05);
+}
+
+/* VIEWER */
+.image-viewer{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.92);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999999;
+}
+
+.viewer-box{
+position:relative;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.viewer-img{
+max-width:90vw;
+max-height:85vh;
+object-fit:contain;
+border-radius:20px;
+}
+
+.nav-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+width:55px;
+height:55px;
+border:none;
+border-radius:50%;
+background:rgba(255,255,255,.9);
+font-size:28px;
+cursor:pointer;
+}
+
+.prev-btn{left:20px;}
+.next-btn{right:20px;}
+
+.close-view{
+position:absolute;
+top:20px;
+right:20px;
+width:45px;
+height:45px;
+border:none;
+border-radius:50%;
+background:white;
+font-size:24px;
+cursor:pointer;
+}
+
+/* ================= PRIVATE UPGRADE ================= */
+
+/* title đẹp hơn */
+.private-card h2{
+display:flex;
+align-items:center;
+gap:12px;
+font-family:"Playfair Display";
+color:#d86e9d;
+}
+
+/* trước khi mở khóa */
+#privateHint{
+font-family:"Cormorant Garamond";
+font-size:18px;
+color:#8d7480;
+margin-bottom:15px;
+}
+
+/* sau khi mở khóa (JS sẽ đổi text) */
+#privateHint.unlocked{
+font-family:"Playfair Display";
+font-size:20px;
+color:#e37ca9;
+font-weight:700;
+text-align:center;
+padding:8px 14px;
+border-radius:999px;
+background:linear-gradient(90deg,#ffe3f1,#ffd0e6);
+box-shadow:0 8px 20px rgba(227,124,169,0.2);
+animation:pop 0.4s ease;
+}
+
+@keyframes pop{
+from{transform:scale(0.9);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+/* button */
+.private-btn{
+padding:14px 26px;
+border:none;
+border-radius:999px;
+background:linear-gradient(90deg,#f6a5c3,#eb76a8);
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+#privateUploadBtn,
+#privateGallery{
+display:none;
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div id="loader">
+
+<div class="loader-text">
+<img src="./img2.png">
+</div>
+
+</div>
+
+<!-- HEADER -->
+<header class="header">
+<div class="logo">
+<img src="./logo.png">
+</div>
+
+<div class="nav">
+<a href="index.html">🎨 Trang chủ</a>
+<a href="write.html">💌 Viết lưu bút</a>
+<a href="say.html">🌙 Điều muốn nói</a>
+<a href="memories.html">🌷 Kỷ niệm</a>
+<a href="gallery.html">🌸 Ảnh</a>
+</div>
+</header>
+
+<!-- TITLE -->
+<div class="title-box">
+<div class="title-bg">
+<h1 class="main-title">Ảnh của chúng ta</h1>
+<div class="sub-title">Lưu giữ thanh xuân cùng nhau 🌸</div>
+</div>
+</div>
+
+<!-- CONTENT -->
+<div class="photo-layout">
+
+<!-- GROUP -->
+<div class="photo-box">
+
+<h2>👥 Ảnh nhóm</h2>
+
+<label class="upload-btn">
+<input id="groupInput" type="file" accept="image/*">
+Tải ảnh
+</label>
+
+<div id="groupGallery" class="gallery-grid"></div>
+
+</div>
+
+<!-- PRIVATE -->
+<div class="photo-box private-card">
+
+<h2>🔒 Ảnh cá nhân</h2>
+
+<p id="privateHint">Khu vực ký ức được khóa nhẹ 💗</p>
+
+<button class="private-btn" onclick="openPrivate()">
+Mở bộ sưu tập
+</button>
+
+<label id="privateUploadBtn" class="upload-btn">
+<input id="privateInput" type="file" accept="image/*">
+Tải ảnh cá nhân
+</label>
+
+<div id="privateGallery" class="gallery-grid"></div>
+
+</div>
+
+</div>
+
+<script> 
+  
+/* LOADER */
+
+window.addEventListener(
+
+"load",
+
+()=>{
+
+setTimeout(()=>{
+
+const loader=
+document.getElementById(
+"loader"
+)
+
+loader.style.opacity="0"
+
+setTimeout(()=>{
+
+loader.remove()
+
+},1000)
+
+},1200)
+
+})
+</script>
+
+<button id="musicBtn">♫</button>
+
+
+
+<script>
+
+
+
+let playing = false;
+const btn = document.getElementById("musicBtn");
+btn.addEventListener("click", () => {
+  if (window.music.paused) {
+    window.music.play();
+    btn.classList.add("playing");
+    btn.innerHTML = "❚❚";
+  } else {
+    window.music.pause();
+    btn.classList.remove("playing");
+    btn.innerHTML = "♫";
+  }
+});
+</script>
+<script src="music.js"></script>
+<script type="module" src="./gallery.js"></script>
+
+<script>
+let musicStarted = false;
+
+// đảm bảo chỉ tạo 1 audio duy nhất
+if (!window.music) {
+  window.music = new Audio("./music.mp3");
+  window.music.loop = true;
+  window.music.preload = "auto";
+  window.music.volume = 1;
+}
+
+// FIX AUTOPLAY CONFLICT
+function safeStartMusic() {
+  if (musicStarted) return;
+
+  window.music.play()
+    .then(() => {
+      musicStarted = true;
+      console.log("🎵 Music started safely");
+    })
+    .catch(err => {
+      console.log("⛔ Autoplay blocked:", err);
+    });
+}
+
+// chỉ chạy 1 lần khi user click lần đầu
+document.addEventListener("click", () => {
+  safeStartMusic();
+}, { once: true });
+</script>
+
+
+</body>
+</html>

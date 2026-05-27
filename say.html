@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Điều muốn nói</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+#musicBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(10px);
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 9999;
+}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:"Cormorant Garamond", serif;
+  overflow-x:hidden;
+  color:#5f4b57;
+}
+
+/* BACKGROUND */
+
+.bg{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-5;
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,245,250,0.72),
+      rgba(255,240,248,0.82)
+    );
+  z-index:-4;
+}
+
+/* FLOWERS */
+
+.flowers{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:-1;
+}
+
+.flower{
+  position:absolute;
+  top:-10%;
+  opacity:.7;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+
+  0%{
+    transform:
+      translateY(-10vh)
+      rotate(0deg);
+  }
+
+  100%{
+    transform:
+      translateY(120vh)
+      rotate(360deg);
+  }
+
+}
+
+/* LOADER */
+
+#loader{
+
+  position:fixed;
+  inset:0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #fff5fa,
+      #ffeef5
+    );
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:999999;
+
+  transition:1s;
+}
+
+.loader-text{
+
+  font-size:58px;
+  color:#d46b9a;
+
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+  0%{
+    opacity:.4;
+    transform:scale(.95);
+  }
+
+  50%{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  100%{
+    opacity:.4;
+    transform:scale(.95);
+  }
+
+}
+
+
+/* MUSIC BUTTON */
+
+#musicBtn{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+
+  width:65px;
+  height:65px;
+
+  border:none;
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.35);
+  backdrop-filter:blur(12px);
+
+  color:#d46b9a;
+  font-size:32px;
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:0 8px 20px rgba(212,107,154,0.15);
+
+  transition:all .3s ease;
+
+  z-index:9999;
+}
+
+#musicBtn:hover{
+  transform:scale(1.08);
+  background:rgba(255,255,255,0.5);
+}
+
+.playing{
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+
+/* HEADER */
+
+.header{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+
+height:90px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:0 35px;
+
+background:
+rgba(255,255,255,.25);
+
+backdrop-filter:blur(10px);
+
+z-index:999;
+
+}
+
+.logo img{
+
+padding-top:15px;
+
+height:120px;
+
+}
+
+.nav{
+
+display:flex;
+
+gap:35px;
+
+margin-left:auto;
+
+align-items:center;
+
+}
+
+.nav a{
+
+text-decoration:none;
+
+font-family:
+"Cormorant Garamond";
+
+font-size:22px;
+
+font-weight:900;
+
+letter-spacing:.6px;
+
+color:#7a6b75;
+
+padding:10px 16px;
+
+border-radius:20px;
+
+position:relative;
+
+transition:.35s;
+
+}
+
+.nav a:hover{
+
+color:#d46b9a;
+
+background:
+rgba(255,182,209,.15);
+
+transform:
+translateY(-2px);
+
+}
+
+.nav a::after{
+
+content:'';
+
+position:absolute;
+
+left:15%;
+
+bottom:5px;
+
+width:0;
+
+height:2px;
+
+background:
+
+linear-gradient(
+90deg,
+#ff9ecb,
+#c084fc
+);
+
+transition:.35s;
+
+}
+
+.nav a:hover::after{
+
+width:70%;
+
+}
+
+/* MAIN */
+
+.main{
+  width:100%;
+  min-height:100vh;
+
+  padding:
+    105px
+    50px
+    50px;
+
+  display:flex;
+  gap:40px;
+}
+
+/* LEFT */
+
+.left{
+  width:30%;
+}
+
+.info-card{
+  background:rgba(255,255,255,0.35);
+
+  backdrop-filter:blur(20px);
+
+  border-radius:28px;
+
+  padding:35px;
+
+  border:1px solid rgba(255,255,255,0.4);
+
+  box-shadow:
+    0 15px 35px rgba(212,107,154,0.08);
+}
+
+.info-card h1{
+  font-size:42px;
+  color:#d46b9a;
+  margin-bottom:18px;
+}
+
+.info-card p{
+  line-height:1.9;
+  font-size:21px;
+}
+
+/* RIGHT */
+
+.right{
+  width:70%;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* WRITE */
+
+.write-box{
+  background:rgba(255,255,255,0.35);
+
+  backdrop-filter:blur(20px);
+
+  border-radius:28px;
+
+  padding:25px;
+
+  border:1px solid rgba(255,255,255,0.4);
+
+  box-shadow:
+    0 15px 35px rgba(212,107,154,0.08);
+}
+
+textarea{
+  width:100%;
+  height:130px;
+
+  border:none;
+  outline:none;
+  resize:none;
+
+  border-radius:20px;
+
+  padding:18px;
+
+  background:rgba(255,255,255,0.6);
+
+  font-size:19px;
+
+  color:#5f4b57;
+}
+
+.send-btn{
+  margin-top:18px;
+
+  border:none;
+
+  padding:14px 26px;
+
+  border-radius:18px;
+
+  cursor:pointer;
+
+  font-size:18px;
+  font-weight:700;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff9ecb,
+      #c084fc
+    );
+
+  transition:.35s;
+}
+
+.send-btn:hover{
+  transform:translateY(-2px) scale(1.03);
+
+  box-shadow:
+    0 12px 24px rgba(212,107,154,0.25);
+}
+
+/* MESSAGE */
+
+.card{
+  background:rgba(255,255,255,0.35);
+
+  backdrop-filter:blur(20px);
+
+  border-radius:24px;
+
+  padding:22px;
+
+  margin-bottom:10px;
+
+  border:1px solid rgba(255,255,255,0.4);
+
+  animation:fadeUp .5s ease;
+
+  box-shadow:
+    0 10px 25px rgba(212,107,154,0.06);
+}
+
+@keyframes fadeUp{
+
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+.time {
+  font-size: 20px;
+  margin-top: 10px;
+  color: rgba(212, 107, 154, 0.9);
+  font-weight: 600;
+  text-align: right;
+}
+
+.card-text{
+  font-size:21px;
+  line-height:1.8;
+}
+
+.admin-actions{
+  margin-top:16px;
+  display:flex;
+  gap:10px;
+}
+
+.action-btn{
+  border:none;
+
+  padding:8px 14px;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff9ecb,
+      #c084fc
+    );
+}
+
+/* ADMIN */
+
+.admin-btn{
+  position:fixed;
+
+  right:25px;
+  bottom:25px;
+
+  width:65px;
+  height:65px;
+
+  border:none;
+  border-radius:50%;
+
+  cursor:pointer;
+
+  font-size:25px;
+  color:white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff9ecb,
+      #c084fc
+    );
+
+  box-shadow:
+    0 10px 25px rgba(212,107,154,0.25);
+
+  transition:.35s;
+
+  z-index:9999;
+}
+
+.admin-btn:hover{
+  transform:scale(1.08);
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .main{
+    flex-direction:column;
+    padding:120px 20px 40px;
+  }
+
+  .left,
+  .right{
+    width:100%;
+  }
+
+  .header{
+    padding:0 20px;
+  }
+
+  .nav{
+    gap:12px;
+  }
+
+  .nav a{
+    font-size:15px;
+    padding:6px 10px;
+  }
+
+  .logo{
+    font-size:25px;
+  }
+
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div id="loader">
+
+  <div class="loader-text">
+    <img src="img22.png">
+  </div>
+
+</div>
+
+<!-- FLOWERS -->
+
+<div class="flowers"></div>
+
+<!-- BACKGROUND -->
+
+<img class="bg" src="bg.png">
+
+<div class="overlay"></div>
+
+<!-- HEADER -->
+
+<div class="header">
+
+  <div class="logo">
+    <img src="logo.png">
+  </div>
+
+  <div class="nav">
+    <a href="index.html">🎨 Trang chủ</a>
+  <a href="write.html">💌 Viết lưu bút</a>
+  <a href="say.html">🌙 Điều muốn nói</a>
+  <a href="memories.html">🌷 Kỷ niệm</a>
+  <a href="gallery.html">🌸 Ảnh</a>
+  </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+  <!-- LEFT -->
+
+  <div class="left">
+
+    <div class="info-card">
+
+      <h1>💌 Điều muốn nói</h1>
+
+
+      <p>
+        Thanh xuân rồi sẽ đi qua rất nhanh,
+        nhưng cảm xúc của những ngày ấy
+        luôn xứng đáng được lưu giữ.
+      </p>
+
+      <br>
+
+      <p>
+        Có thể ở ngoài kia,
+        chúng ta chẳng đủ can đảm để cất lời.
+        Nhưng tại nơi này,
+        mọi điều đều có thể được lắng nghe.
+      </p>
+
+      <br>
+
+      <p>
+        Hãy để lại một mảnh cảm xúc của bạn —
+        một bí mật nhỏ,
+        một điều còn dang dở,
+        hay một ký ức chưa từng gọi tên.
+      </p>
+
+      <br>
+
+      <p>
+        Ở đây, mọi cảm xúc đều được giữ kín.
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- RIGHT -->
+
+  <div class="right">
+
+    <div class="write-box">
+
+      <textarea
+        id="msg"
+        placeholder="Viết điều bạn muốn gửi..."
+      ></textarea>
+
+      <button
+        class="send-btn"
+        onclick="sendMessage()"
+      >
+        Gửi ẩn danh 💌
+      </button>
+
+    </div>
+
+    <div id="messages"></div>
+
+  </div>
+
+</div>
+
+<!-- ADMIN -->
+
+<button
+  class="admin-btn"
+  onclick="loginAdmin()"
+>
+⚙
+</button>
+
+<script type="module" src="./app.js"></script>
+
+<script>
+
+/* FLOWERS */
+
+function createFlower(){
+
+  const flower =
+    document.createElement("div");
+
+  flower.classList.add("flower");
+
+  flower.innerHTML = "🌸";
+
+  flower.style.left =
+    Math.random()*100 + "vw";
+
+  flower.style.animationDuration =
+    5 + Math.random()*5 + "s";
+
+  flower.style.fontSize =
+    18 + Math.random()*18 + "px";
+
+  document.body.appendChild(flower);
+
+  setTimeout(()=>{
+    flower.remove();
+  },10000);
+
+}
+
+setInterval(createFlower,500);
+
+/* LOADER */
+
+window.addEventListener("load",()=>{
+
+  setTimeout(()=>{
+
+    const loader =
+      document.getElementById("loader");
+
+    loader.style.opacity = "0";
+
+    setTimeout(()=>{
+      loader.remove();
+    },1000);
+
+  },1300);
+
+});
+
+</script>
+
+
+<button id="musicBtn">♫</button>
+
+
+
+<script>
+
+
+
+let playing = false;
+const btn = document.getElementById("musicBtn");
+btn.addEventListener("click", () => {
+  if (window.music.paused) {
+    window.music.play();
+    btn.classList.add("playing");
+    btn.innerHTML = "❚❚";
+  } else {
+    window.music.pause();
+    btn.classList.remove("playing");
+    btn.innerHTML = "♫";
+  }
+});
+</script>
+<script src="music.js"></script>
+
+<script type="module" src="./say.js"></script>
+
+<!-- ADMIN POPUP -->
+<div id="adminPopup" style="
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(6px);
+  z-index:99999;
+">
+
+  <div style="
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    width:300px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  ">
+
+    <h2 style="margin-bottom:15px;">🔐 Admin</h2>
+
+    <input id="adminPassword" type="password"
+      placeholder="Nhập mật khẩu"
+      style="
+        width:100%;
+        padding:12px;
+        border-radius:12px;
+        border:1px solid #ddd;
+        margin-bottom:15px;
+      "
+    />
+
+    <button onclick="checkAdmin()" style="
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(90deg,#ff9ecb,#c084fc);
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    ">
+      Mở khóa
+    </button>
+
+    <p onclick="closeAdmin()" style="
+      margin-top:10px;
+      font-size:13px;
+      cursor:pointer;
+      color:#999;
+    ">Đóng</p>
+
+  </div>
+</div>
+
+<button onclick="openAdmin()" style="
+  position:fixed;
+  left:25px;
+  bottom:25px;
+  width:60px;
+  height:60px;
+  border:none;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff9ecb,#c084fc);
+  color:white;
+  font-size:22px;
+  z-index:9999;
+  cursor:pointer;
+">
+⚙
+</button>
+
+
+
+</body>
+</html>

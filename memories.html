@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Những Mảnh Kí Ức</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+#musicBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(10px);
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 9999;
+}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:'Nunito',sans-serif;
+
+background:
+linear-gradient(
+rgba(255,240,248,.25),
+rgba(255,240,248,.25)
+),
+url("./bg.png");
+
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+background-attachment:fixed;
+
+min-height:100vh;
+overflow-x:hidden;
+
+}
+
+/* OVERLAY */
+.letter-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.35);
+backdrop-filter:blur(6px);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;
+animation:fadeIn .2s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0}
+to{opacity:1}
+}
+
+/* ENVELOPE OPEN ANIMATION */
+.open-box{
+width:420px;
+max-width:90%;
+background:linear-gradient(145deg,#fff8fb,#ffeaf3);
+border-radius:25px;
+padding:30px;
+box-shadow:0 25px 60px rgba(0,0,0,.25);
+position:relative;
+transform:scale(.8);
+animation:pop .25s ease forwards;
+}
+
+@keyframes pop{
+to{transform:scale(1)}
+}
+
+.open-box::before{
+content:"💌";
+font-size:60px;
+position:absolute;
+top:15px;
+right:20px;
+opacity:.2;
+}
+
+/* TEXT */
+.open-from{
+font-size:24px;
+font-weight:800;
+color:#d46b9a;
+margin-bottom:10px;
+}
+
+.open-message{
+white-space:pre-wrap;
+font-size:18px;
+line-height:1.8;
+color:#5f555a;
+margin-top:15px;
+}
+
+/* CLOSE BTN */
+.close-btn{
+margin-top:20px;
+padding:10px 16px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#f6a5c3,#eb76a8);
+color:white;
+cursor:pointer;
+font-weight:700;
+}
+
+
+/* MUSIC BUTTON */
+
+#musicBtn{
+  position:fixed;
+  bottom:100px;
+  right:25px;
+
+  width:65px;
+  height:65px;
+
+  border:none;
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.35);
+  backdrop-filter:blur(12px);
+
+  color:#d46b9a;
+  font-size:32px;
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:0 8px 20px rgba(212,107,154,0.15);
+
+  transition:all .3s ease;
+
+  z-index:9999;
+}
+
+#musicBtn:hover{
+  transform:scale(1.08);
+  background:rgba(255,255,255,0.5);
+}
+
+.playing{
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+/* FLOWERS */
+
+.flowers{
+
+position:fixed;
+inset:0;
+
+pointer-events:none;
+overflow:hidden;
+
+z-index:1;
+
+}
+
+.flower{
+
+position:absolute;
+top:-10%;
+
+animation:fall linear forwards;
+
+opacity:.8;
+
+}
+
+@keyframes fall{
+
+0%{
+
+transform:
+translateY(-10vh)
+rotate(0deg);
+
+}
+
+100%{
+
+transform:
+translateY(120vh)
+rotate(360deg);
+
+}
+
+}
+
+/* LOADER */
+
+#loader{
+
+position:fixed;
+inset:0;
+
+background:
+linear-gradient(
+to bottom,
+#fff5fa,
+#ffeef5
+);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:999999;
+
+transition:1s;
+
+}
+
+.loader-text{
+
+font-size:58px;
+
+font-family:
+"Playfair Display";
+
+color:#d46b9a;
+
+animation:pulse 2s infinite;
+
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+
+
+/* HEADER */
+
+.header{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:90px;
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+padding:0 35px;
+
+background:
+linear-gradient(
+to bottom,
+rgba(255,245,250,0.9),
+rgba(255,245,250,0.55)
+);
+
+backdrop-filter:blur(14px);
+
+z-index:999;
+
+border-bottom:
+1px solid rgba(255,255,255,.35);
+
+box-shadow:
+0 8px 30px rgba(212,107,154,.08);
+
+}
+
+.logo img{
+
+padding-top:15px;
+height:120px;
+
+}
+
+.nav{
+
+display:flex;
+gap:35px;
+
+margin-left:auto;
+align-items:center;
+
+}
+
+.nav a{
+
+text-decoration:none;
+
+font-family:
+"Cormorant Garamond";
+
+font-size:22px;
+font-weight:900;
+
+letter-spacing:.6px;
+
+color:#7a6b75;
+
+padding:10px 16px;
+
+border-radius:20px;
+
+position:relative;
+
+transition:.35s;
+
+}
+
+.nav a:hover{
+
+color:#d46b9a;
+
+background:
+rgba(255,182,209,.15);
+
+transform:
+translateY(-2px);
+
+box-shadow:
+0 8px 20px rgba(212,107,154,.15);
+
+}
+
+.nav a::after{
+
+content:'';
+
+position:absolute;
+
+left:15%;
+bottom:5px;
+
+width:0;
+height:2px;
+
+background:
+linear-gradient(
+90deg,
+#ff9ecb,
+#c084fc
+);
+
+transition:.35s;
+
+}
+
+.nav a:hover::after{
+
+width:70%;
+
+}
+
+/* TITLE */
+
+.title-box{
+
+padding-top:130px;
+
+text-align:center;
+
+position:relative;
+
+z-index:5;
+
+}
+
+.title-bg{
+
+display:inline-block;
+
+padding:18px 45px;
+
+border-radius:30px;
+
+background:
+rgba(255,250,252,.72);
+
+backdrop-filter:blur(12px);
+
+box-shadow:
+0 10px 30px rgba(212,107,154,.12);
+
+}
+
+.main-title{
+
+font-size:58px;
+
+font-family:
+"Playfair Display";
+
+color:#e37ca9;
+
+text-shadow:
+0 2px 10px rgba(255,255,255,.9);
+
+}
+
+.sub-title{
+
+margin-top:10px;
+
+font-size:18px;
+
+color:#8d7480;
+
+font-weight:600;
+
+}
+
+/* LETTERS */
+
+.letters{
+
+width:100%;
+
+max-width:1400px;
+
+margin:auto;
+
+padding:
+40px 30px 80px;
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(320px,1fr));
+
+gap:35px;
+
+position:relative;
+
+z-index:5;
+
+}
+
+/* LETTER CARD */
+
+.letter{
+
+height:240px;
+
+border-radius:30px;
+
+position:relative;
+
+cursor:pointer;
+
+overflow:hidden;
+
+transition:.45s;
+
+background:
+linear-gradient(
+145deg,
+rgba(255,248,251,.96),
+rgba(255,240,247,.93)
+);
+
+backdrop-filter:blur(10px);
+
+box-shadow:
+0 15px 35px rgba(212,107,154,.12);
+
+border:
+1px solid rgba(255,255,255,.6);
+
+}
+
+.letter:hover{
+
+transform:
+translateY(-10px)
+scale(1.03);
+
+box-shadow:
+0 25px 50px rgba(212,107,154,.18);
+
+}
+
+/* ENVELOPE */
+
+.envelope{
+
+position:absolute;
+
+inset:0;
+
+padding:35px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+}
+
+.envelope::before{
+
+content:"💌";
+
+font-size:68px;
+
+margin-bottom:15px;
+
+filter:drop-shadow(
+0 4px 8px rgba(0,0,0,.12)
+);
+
+}
+
+.from{
+
+font-size:22px;
+
+font-weight:800;
+
+color:#d86e9d;
+
+margin-bottom:12px;
+
+}
+
+.date{
+
+font-size:15px;
+
+color:#9a7f8b;
+
+margin-bottom:18px;
+
+}
+
+.secret{
+
+font-size:18px;
+
+font-weight:700;
+
+color:#ffffff;
+
+padding:10px 20px;
+
+border-radius:16px;
+
+background:
+linear-gradient(
+90deg,
+#f6a5c3,
+#eb76a8
+);
+
+box-shadow:
+0 10px 20px rgba(235,118,168,.25);
+
+}
+
+/* OPEN LETTER */
+
+.open-letter{
+
+position:absolute;
+inset:0;
+
+padding:30px;
+
+overflow:auto;
+
+animation:fadeIn .4s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:scale(.95);
+}
+
+to{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+.open-letter h3{
+
+font-size:28px;
+
+margin-bottom:18px;
+
+color:#e06e9f;
+
+font-family:
+"Playfair Display";
+
+}
+
+.open-letter p{
+
+font-size:18px;
+
+line-height:1.9;
+
+color:#6c5f66;
+
+white-space:pre-wrap;
+
+}
+
+/* ADMIN */
+
+.admin-btn{
+
+position:fixed;
+
+right:25px;
+bottom:25px;
+
+width:65px;
+height:65px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+#f8b5cf,
+#ec76a8
+);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+font-size:30px;
+
+color:white;
+
+cursor:pointer;
+
+z-index:99999;
+
+box-shadow:
+0 12px 30px rgba(235,118,168,.35);
+
+transition:.35s;
+
+}
+
+.admin-btn:hover{
+
+transform:
+scale(1.08)
+rotate(15deg);
+
+}
+
+/* POPUP */
+
+.admin-popup{
+
+position:fixed;
+inset:0;
+
+background:
+rgba(0,0,0,.35);
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+z-index:999999;
+
+backdrop-filter:blur(6px);
+
+}
+
+.admin-box{
+
+width:340px;
+
+background:
+rgba(255,250,252,.96);
+
+padding:35px;
+
+border-radius:28px;
+
+text-align:center;
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.18);
+
+animation:popup .35s ease;
+
+}
+
+@keyframes popup{
+
+from{
+opacity:0;
+transform:scale(.8);
+}
+
+to{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+.admin-box h2{
+
+font-size:32px;
+
+margin-bottom:20px;
+
+color:#e27aa7;
+
+font-family:
+"Playfair Display";
+
+}
+
+.admin-box input{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+outline:none;
+
+border-radius:15px;
+
+background:#fff;
+
+font-size:16px;
+
+margin-bottom:15px;
+
+border:
+1px solid #f3c8da;
+
+}
+
+.admin-box button{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:16px;
+
+background:
+linear-gradient(
+90deg,
+#f6a5c3,
+#eb76a8
+);
+
+color:white;
+
+font-size:17px;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+/* ===== VISUAL NOVEL OVERLAY ===== */
+
+.vn-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.4);
+backdrop-filter:blur(8px);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999999;
+animation:fadeBg .2s ease;
+}
+
+@keyframes fadeBg{
+from{opacity:0}
+to{opacity:1}
+}
+
+.vn-box{
+width:450px;
+max-width:90%;
+background:linear-gradient(145deg,#fff8fb,#ffeaf3);
+border-radius:30px;
+padding:30px;
+position:relative;
+box-shadow:0 25px 60px rgba(0,0,0,.25);
+animation:popIn .25s ease;
+}
+
+@keyframes popIn{
+from{transform:scale(.8)}
+to{transform:scale(1)}
+}
+
+.vn-box::before{
+content:"💌";
+position:absolute;
+top:15px;
+right:20px;
+font-size:60px;
+opacity:.2;
+}
+
+.vn-from{
+font-size:24px;
+font-weight:800;
+color:#d46b9a;
+margin-bottom:10px;
+}
+
+.vn-message{
+font-size:18px;
+line-height:1.8;
+color:#5e5459;
+white-space:pre-wrap;
+margin-top:10px;
+}
+
+.vn-close{
+margin-top:20px;
+padding:10px 16px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#f6a5c3,#eb76a8);
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+/* ===== ANIME ENVELOPE UPGRADE ===== */
+
+.letter{
+perspective:1000px;
+transition:0.6s;
+}
+
+.envelope-front{
+position:absolute;
+inset:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+border-radius:30px;
+background:linear-gradient(145deg,#fff,#ffe6f2);
+backdrop-filter:blur(10px);
+overflow:hidden;
+}
+
+.envelope-front .shine{
+position:absolute;
+width:200%;
+height:200%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);
+transform:rotate(25deg);
+animation:shineMove 3s infinite;
+}
+
+@keyframes shineMove{
+0%{transform:translateX(-100%) rotate(25deg);}
+100%{transform:translateX(100%) rotate(25deg);}
+}
+
+.from{
+font-size:22px;
+font-weight:800;
+color:#d46b9a;
+z-index:2;
+}
+
+.date{
+color:#999;
+margin-top:8px;
+z-index:2;
+}
+
+.hint{
+margin-top:15px;
+font-size:14px;
+color:#ff7aa8;
+opacity:.8;
+z-index:2;
+}
+
+/* OPEN ANIMATION */
+.letter.open{
+transform:scale(1.1) rotateY(180deg);
+}
+
+.anime-open{
+animation:openPop 0.6s ease;
+}
+
+@keyframes openPop{
+0%{transform:scale(.8);opacity:0;}
+100%{transform:scale(1);opacity:1;}
+}
+
+.paper-text{
+white-space:pre-wrap;
+font-size:18px;
+line-height:1.9;
+color:#5a4b52;
+margin-top:15px;
+padding:10px;
+background:rgba(255,255,255,.6);
+border-radius:15px;
+backdrop-filter:blur(10px);
+}
+
+.delete-btn{
+margin-top:20px;
+padding:10px 15px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#ff6b9d,#ff3d7f);
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+/* ===== CUT ENVELOPE EFFECT ===== */
+
+.envelope-cut{
+position:absolute;
+inset:0;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(145deg,#ffe6f2,#fff);
+}
+
+.envelope-left,
+.envelope-right{
+position:absolute;
+width:50%;
+height:100%;
+top:0;
+background:linear-gradient(145deg,#ffd1e6,#fff);
+transition:0.6s ease;
+}
+
+.envelope-left{
+left:0;
+border-right:1px solid rgba(0,0,0,.05);
+}
+
+.envelope-right{
+right:0;
+border-left:1px solid rgba(0,0,0,.05);
+}
+
+/* rạch phong bì */
+.letter.cutting .envelope-left{
+transform:translateX(-100%) rotate(-5deg);
+opacity:0;
+}
+
+.letter.cutting .envelope-right{
+transform:translateX(100%) rotate(5deg);
+opacity:0;
+}
+.envelope-cut{
+position:absolute;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+background:linear-gradient(145deg,#ffe6f2,#fff);
+}
+
+.envelope-left,
+.envelope-right{
+position:absolute;
+width:50%;
+height:100%;
+top:0;
+background:linear-gradient(145deg,#ffd1e6,#fff);
+transition:0.7s ease;
+}
+
+.envelope-left{
+left:0;
+}
+
+.envelope-right{
+right:0;
+}
+
+.letter.cutting .envelope-left{
+transform:translateX(-100%);
+opacity:0;
+}
+
+.letter.cutting .envelope-right{
+transform:translateX(100%);
+opacity:0;
+}
+
+.knife{
+position:absolute;
+width:140px;
+height:2px;
+background:#ff3d7f;
+top:50%;
+animation:slash 0.7s ease forwards;
+box-shadow:0 0 12px #ff3d7f;
+}
+
+@keyframes slash{
+0%{transform:translateX(-50%) rotate(0);}
+100%{transform:translateX(200%) rotate(20deg);opacity:0;}
+}
+
+.paper-fall{
+position:absolute;
+font-size:40px;
+animation:paperFly 0.9s ease forwards;
+}
+
+@keyframes paperFly{
+0%{transform:translateY(0) scale(0.5);opacity:0;}
+40%{opacity:1;}
+100%{transform:translateY(140px) scale(1.2);opacity:0;}
+}
+
+/* dao rạch */
+.knife{
+position:absolute;
+width:120px;
+height:2px;
+background:#ff4d88;
+top:50%;
+left:-20%;
+animation:slash 0.6s ease forwards;
+box-shadow:0 0 10px #ff4d88;
+}
+
+@keyframes slash{
+0%{transform:translateX(0) rotate(0);}
+100%{transform:translateX(200%) rotate(20deg);opacity:0;}
+}
+
+/* giấy bay ra */
+.paper-fall{
+position:absolute;
+font-size:40px;
+animation:paperFly 0.9s ease forwards;
+}
+
+@keyframes paperFly{
+0%{transform:translateY(0) scale(0.5);opacity:0;}
+30%{opacity:1;}
+100%{transform:translateY(120px) scale(1.2) rotate(10deg);opacity:0;}
+}
+.open-letter p,
+.paper-text,
+.vn-message {
+    white-space: pre-wrap;   /* xuống dòng khi gặp \n */
+    word-wrap: break-word;   /* cắt chữ dài */
+    overflow-wrap: break-word;
+    line-height: 1.8;
+}
+.open-letter,
+.vn-box {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="flowers"></div>
+
+<!-- LOADER -->
+
+<div id="loader">
+
+<div class="loader-text">
+<img src="./img2.png">
+</div>
+
+</div>
+
+<!-- HEADER -->
+
+<header class="header">
+
+<div class="logo">
+<img src="./logo.png">
+</div>
+
+<div class="nav">
+
+<a href="index.html">🎨 Trang chủ</a>
+
+<a href="write.html">💌 Viết lưu bút</a>
+
+<a href="say.html">🌙 Điều muốn nói</a>
+
+<a href="memories.html">🌷 Kỷ niệm</a>
+
+
+<a href="gallery.html">🌸 Ảnh</a>
+
+</div>
+
+</header>
+
+<!-- TITLE -->
+
+<div class="title-box">
+
+<div class="title-bg">
+
+<h1 class="main-title">
+Những Mảnh Kí Ức
+</h1>
+
+<div class="sub-title">
+Mỗi lá thư là một khoảng trời thanh xuân được cất giữ 🌸
+</div>
+
+</div>
+
+</div>
+
+<!-- LETTERS -->
+
+<div class="letters" id="letters"></div>
+
+<!-- ADMIN -->
+
+<div class="admin-btn" onclick="openAdmin()">
+⚙
+</div>
+
+<!-- POPUP -->
+
+<div id="adminPopup" class="admin-popup">
+
+<div class="admin-box">
+
+<h2>🌸 Admin Access</h2>
+
+<input
+type="password"
+id="adminPassword"
+placeholder="Nhập mật khẩu..."
+>
+
+<button onclick="checkAdmin()">
+Vào quản lý
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function createFlower(){
+
+const flower=document.createElement("div")
+
+flower.classList.add("flower")
+
+flower.innerHTML="🌸"
+
+flower.style.left=Math.random()*100+"vw"
+
+flower.style.fontSize=
+18+Math.random()*22+"px"
+
+flower.style.animationDuration=
+5+Math.random()*5+"s"
+
+document.body.appendChild(flower)
+
+setTimeout(()=>{
+flower.remove()
+},10000)
+
+}
+
+setInterval(createFlower,500)
+
+</script>
+
+<script> 
+  
+/* LOADER */
+
+window.addEventListener(
+
+"load",
+
+()=>{
+
+setTimeout(()=>{
+
+const loader=
+document.getElementById(
+"loader"
+)
+
+loader.style.opacity="0"
+
+setTimeout(()=>{
+
+loader.remove()
+
+},1000)
+
+},1200)
+
+})
+</script>
+
+
+
+<button id="musicBtn">♫</button>
+
+
+
+<script>
+
+
+
+let playing = false;
+const btn = document.getElementById("musicBtn");
+btn.addEventListener("click", () => {
+  if (window.music.paused) {
+    window.music.play();
+    btn.classList.add("playing");
+    btn.innerHTML = "❚❚";
+  } else {
+    window.music.pause();
+    btn.classList.remove("playing");
+    btn.innerHTML = "♫";
+  }
+});
+</script>
+<script src="music.js"></script>
+<script type="module" src="./gallery.js"></script>
+
+<script>
+let musicStarted = false;
+
+// đảm bảo chỉ tạo 1 audio duy nhất
+if (!window.music) {
+  window.music = new Audio("./music.mp3");
+  window.music.loop = true;
+  window.music.preload = "auto";
+  window.music.volume = 1;
+}
+
+// FIX AUTOPLAY CONFLICT
+function safeStartMusic() {
+  if (musicStarted) return;
+
+  window.music.play()
+    .then(() => {
+      musicStarted = true;
+      console.log("🎵 Music started safely");
+    })
+    .catch(err => {
+      console.log("⛔ Autoplay blocked:", err);
+    });
+}
+
+// chỉ chạy 1 lần khi user click lần đầu
+document.addEventListener("click", () => {
+  safeStartMusic();
+}, { once: true });
+</script>
+
+<script type="module" src="./memories.js"></script>
+
+</body>
+
+</html>

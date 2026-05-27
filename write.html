@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Write Memory</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700&family=Pacifico&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600&family=Cormorant+Garamond:wght@700;900&display=swap"
+rel="stylesheet">
+
+<style>
+#musicBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(10px);
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 9999;
+}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:'Nunito',sans-serif;
+
+background:
+
+linear-gradient(
+rgba(255,240,248,.25),
+rgba(255,240,248,.25)
+),
+
+url("./bg.png");
+
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+background-attachment:fixed;
+
+min-height:100vh;
+overflow-x:hidden;
+
+}
+
+/* LOADER */
+
+#loader{
+
+position:fixed;
+inset:0;
+
+background:
+linear-gradient(
+to bottom,
+#fff5fa,
+#ffeef5
+);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:999999;
+
+transition:1s;
+
+}
+
+.loader-text{
+
+font-size:58px;
+
+font-family:
+"Playfair Display";
+
+color:#d46b9a;
+
+animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+opacity:0;
+transform:translateY(10px);
+}
+
+50%{
+opacity:1;
+transform:translateY(0);
+}
+
+100%{
+opacity:0;
+transform:translateY(-10px);
+}
+
+}
+
+/* FLOWERS */
+
+.flower{
+
+position:fixed;
+
+top:-10%;
+
+pointer-events:none;
+
+z-index:1;
+
+animation:
+fall linear forwards;
+
+}
+
+@keyframes fall{
+
+0%{
+transform:
+translateY(-10vh)
+rotate(0deg);
+}
+
+100%{
+transform:
+translateY(120vh)
+rotate(360deg);
+}
+
+}
+
+/* HEADER */
+
+.header{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+
+height:90px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:0 35px;
+
+background:
+
+linear-gradient(
+to bottom,
+rgba(255,245,250,0.9),
+rgba(255,245,250,0.55)
+);
+
+backdrop-filter:blur(14px);
+
+z-index:999;
+
+border-bottom:
+1px solid
+rgba(255,255,255,.35);
+
+box-shadow:
+
+0 8px 30px
+rgba(212,107,154,.08);
+
+}
+
+.logo img{
+
+padding-top:15px;
+
+height:120px;
+
+}
+
+.nav{
+
+display:flex;
+
+gap:35px;
+
+margin-left:auto;
+
+align-items:center;
+
+}
+
+.nav a{
+
+text-decoration:none;
+
+font-family:
+"Cormorant Garamond";
+
+font-size:22px;
+
+font-weight:900;
+
+letter-spacing:.6px;
+
+color:#7a6b75;
+
+padding:10px 16px;
+
+border-radius:20px;
+
+position:relative;
+
+transition:.35s;
+
+}
+
+.nav a:hover{
+
+color:#d46b9a;
+
+background:
+rgba(255,182,209,.15);
+
+transform:
+translateY(-2px);
+
+box-shadow:
+0 8px 20px
+rgba(212,107,154,.15);
+
+}
+
+.nav a::after{
+
+content:'';
+
+position:absolute;
+
+left:15%;
+
+bottom:5px;
+
+width:0;
+
+height:2px;
+
+background:
+
+linear-gradient(
+90deg,
+#ff9ecb,
+#c084fc
+);
+
+transition:.35s;
+
+}
+
+.nav a:hover::after{
+
+width:70%;
+
+}
+
+/* MAIN */
+
+.container{
+
+padding-top:105px;
+
+padding-inline:25px;
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+}
+
+.memory-box{
+
+width:100%;
+
+max-width:1500px;
+
+height:
+calc(100vh - 120px);
+
+display:grid;
+
+grid-template-columns:
+1.9fr .8fr;
+
+gap:20px;
+
+}
+
+/* PAPER */
+
+.paper{
+
+background:
+rgba(
+255,
+250,
+252,
+0.88
+);
+
+border-radius:35px;
+
+padding:35px;
+
+position:relative;
+
+overflow:hidden;
+
+backdrop-filter:
+blur(10px);
+
+animation:
+fadeUp 1s ease;
+
+box-shadow:
+
+0 15px 35px
+rgba(212,107,154,.08);
+
+}
+
+
+/* MUSIC BUTTON */
+
+#musicBtn{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+
+  width:65px;
+  height:65px;
+
+  border:none;
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.35);
+  backdrop-filter:blur(12px);
+
+  color:#d46b9a;
+  font-size:32px;
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:0 8px 20px rgba(212,107,154,0.15);
+
+  transition:all .3s ease;
+
+  z-index:9999;
+}
+
+#musicBtn:hover{
+  transform:scale(1.08);
+  background:rgba(255,255,255,0.5);
+}
+
+.playing{
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.paper::before{
+
+content:"🌸";
+
+position:absolute;
+
+top:20px;
+right:25px;
+
+font-size:60px;
+
+opacity:.4;
+
+}
+
+.top-line{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+margin-bottom:20px;
+
+}
+
+.memory-title{
+
+font-size:34px;
+
+font-family:
+"Playfair Display";
+
+color:#ea76a7;
+
+white-space:nowrap;
+
+}
+
+.receiver{
+
+flex:1;
+
+border:none;
+
+outline:none;
+
+background:none;
+
+border-bottom:
+2px solid
+#efb7ce;
+
+font-size:22px;
+
+padding:8px;
+
+}
+
+.note{
+
+width:100%;
+
+height:
+calc(100% - 90px);
+
+border:none;
+
+outline:none;
+
+resize:none;
+
+padding:18px;
+
+font-size:19px;
+
+font-family:
+'Nunito';
+
+line-height:45px;
+
+background:
+
+repeating-linear-gradient(
+
+white 0,
+
+white 44px,
+
+#f5dce6 45px
+
+);
+
+border-radius:20px;
+
+color:#6d6670;
+
+caret-color:#ea76a7;
+
+}
+
+.note::placeholder{
+
+font-family:
+'Dancing Script';
+
+font-size:28px;
+
+color:#a08e98;
+
+}
+
+/* TOOL */
+
+.tool{
+
+background:
+rgba(
+255,
+250,
+252,
+0.92
+);
+
+padding:25px;
+
+border-radius:30px;
+
+overflow:auto;
+
+backdrop-filter:
+blur(14px);
+
+box-shadow:
+0 10px 30px
+rgba(212,107,154,.08);
+
+animation:
+fadeUp 1.2s ease;
+
+}
+
+.tool h2{
+
+font-size:34px;
+
+color:#d97aa4;
+
+margin-bottom:18px;
+
+}
+
+.group{
+
+margin-bottom:18px;
+
+}
+
+.group label{
+
+display:block;
+
+font-weight:700;
+
+margin-bottom:8px;
+
+}
+
+select,
+input[type=color]{
+
+width:100%;
+
+padding:12px;
+
+border-radius:15px;
+
+border:
+1px solid
+#efcade;
+
+font-size:16px;
+
+}
+
+/* STICKERS */
+
+.stickers{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:10px;
+
+max-height:220px;
+
+overflow:auto;
+
+font-size:28px;
+
+}
+
+.stickers span{
+
+background:#fff6fb;
+
+padding:10px;
+
+border-radius:14px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.stickers span:hover{
+
+background:#ffe3f1;
+
+transform:scale(1.1);
+
+}
+
+/* SEND BUTTON */
+
+.send{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:18px;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#f6a5c3,
+
+#eb76a8
+
+);
+
+color:white;
+
+font-size:18px;
+
+font-weight:700;
+
+cursor:pointer;
+
+margin-top:15px;
+
+transition:.35s;
+
+box-shadow:
+0 10px 25px
+rgba(235,118,168,.25);
+
+}
+
+.send:hover{
+
+transform:
+translateY(-3px)
+scale(1.03);
+
+box-shadow:
+0 15px 35px
+rgba(235,118,168,.35);
+
+}
+
+#stickerLayer{
+
+position:absolute;
+
+inset:0;
+
+pointer-events:none;
+
+}
+
+.sticker-item{
+
+position:absolute;
+
+font-size:34px;
+
+pointer-events:auto;
+
+cursor:grab;
+
+user-select:none;
+
+}
+
+/* MOBILE */
+
+@media(max-width:1100px){
+
+.memory-box{
+
+grid-template-columns:1fr;
+
+height:auto;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div id="loader">
+
+<div class="loader-text">
+<img src="./img2.png">
+</div>
+
+</div>
+
+<!-- HEADER -->
+
+<header class="header">
+
+<div class="logo">
+
+<img src="./logo.png">
+
+</div>
+
+<div class="nav">
+
+<a href="index.html">🎨 Trang chủ</a>
+
+<a href="write.html">💌 Viết lưu bút</a>
+
+<a href="say.html">🌙 Điều muốn nói</a>
+
+<a href="memories.html">🌷 Kỷ niệm</a>
+
+<a href="gallery.html">🌸 Ảnh</a>
+
+</div>
+
+</header>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<div class="memory-box">
+
+<!-- PAPER -->
+
+<div
+class="paper"
+id="paper">
+
+<div class="top-line">
+
+<div class="memory-title">
+
+Một góc thanh xuân của:
+
+</div>
+
+<input
+class="receiver"
+placeholder="Tên của bạn...">
+
+</div>
+
+<textarea
+class="note"
+id="note"
+placeholder=
+"Những lời muốn nói..."
+></textarea>
+
+<div
+id="stickerLayer">
+</div>
+
+</div>
+
+<!-- TOOL -->
+
+<div class="tool">
+
+<h2>🎨 Công cụ</h2>
+
+<div class="group">
+
+<label>Font chữ</label>
+
+<select id="fontSelect">
+
+<option>Nunito</option>
+<option>Pacifico</option>
+<option>Dancing Script</option>
+<option>Playfair Display</option>
+
+</select>
+
+</div>
+
+<div class="group">
+
+<label>Cỡ chữ</label>
+
+<select id="sizeSelect">
+
+<option>18</option>
+<option>20</option>
+<option>24</option>
+<option>28</option>
+
+</select>
+
+</div>
+
+<div class="group">
+
+<label>Màu chữ</label>
+
+<input
+type="color"
+id="textColor">
+
+</div>
+
+<div class="group">
+
+<label>Sticker</label>
+
+<div class="stickers">
+
+<span>📚</span>
+<span>✏️</span>
+<span>📝</span>
+<span>📖</span>
+
+<span>🎒</span>
+<span>🎓</span>
+<span>📸</span>
+<span>🎞</span>
+
+<span>🎧</span>
+<span>🎵</span>
+<span>🎬</span>
+<span>🎨</span>
+
+<span>🌸</span>
+<span>🌷</span>
+<span>🌹</span>
+<span>🌺</span>
+
+<span>🕊️</span>
+<span>🐰</span>
+<span>🐱</span>
+<span>🦋</span>
+
+<span>⭐</span>
+<span>🌙</span>
+<span>✨</span>
+<span>🍀</span>
+
+</div>
+
+</div>
+
+<button
+class="send"
+id="sendBtn">
+
+💌 Gửi đến Hen
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* FONT */
+
+const note=
+document.querySelector(".note")
+
+fontSelect.onchange=()=>{
+
+note.style.fontFamily=
+fontSelect.value
+
+}
+
+sizeSelect.onchange=()=>{
+
+note.style.fontSize=
+sizeSelect.value+"px"
+
+}
+
+textColor.oninput=()=>{
+
+note.style.color=
+textColor.value
+
+}
+
+/* STICKERS */
+
+document
+.querySelectorAll(
+".stickers span"
+)
+
+.forEach(sticker=>{
+
+sticker.onclick=()=>{
+
+createSticker(
+sticker.innerHTML
+)
+
+}
+
+})
+
+function createSticker(icon){
+
+const s=
+document.createElement("div")
+
+s.className=
+"sticker-item"
+
+s.innerHTML=icon
+
+s.style.left="120px"
+s.style.top="150px"
+
+stickerLayer.appendChild(s)
+
+enableDrag(s)
+
+}
+
+function enableDrag(el){
+
+let dragging=false
+
+let offsetX=0
+let offsetY=0
+
+el.addEventListener(
+
+"pointerdown",
+
+e=>{
+
+dragging=true
+
+const rect=
+el.getBoundingClientRect()
+
+offsetX=
+e.clientX-
+rect.left
+
+offsetY=
+e.clientY-
+rect.top
+
+})
+
+document.addEventListener(
+
+"pointermove",
+
+e=>{
+
+if(!dragging)
+return
+
+const box=
+paper.getBoundingClientRect()
+
+el.style.left=
+e.clientX-
+box.left-
+offsetX+"px"
+
+el.style.top=
+e.clientY-
+box.top-
+offsetY+"px"
+
+})
+
+document.addEventListener(
+
+"pointerup",
+
+()=>{
+
+dragging=false
+
+})
+
+}
+
+/* FLOWERS */
+
+function createFlower(){
+
+const flower=
+document.createElement("div")
+
+flower.classList.add(
+"flower"
+)
+
+flower.innerHTML="🌸"
+
+flower.style.left=
+Math.random()*100+"vw"
+
+flower.style.animationDuration=
+5+Math.random()*5+"s"
+
+flower.style.fontSize=
+18+Math.random()*18+"px"
+
+document.body.appendChild(
+flower
+)
+
+setTimeout(()=>{
+
+flower.remove()
+
+},10000)
+
+}
+
+setInterval(
+createFlower,
+500
+)
+
+/* LOADER */
+
+window.addEventListener(
+
+"load",
+
+()=>{
+
+setTimeout(()=>{
+
+const loader=
+document.getElementById(
+"loader"
+)
+
+loader.style.opacity="0"
+
+setTimeout(()=>{
+
+loader.remove()
+
+},1000)
+
+},1400)
+
+})
+
+</script>
+
+
+<button id="musicBtn">♫</button>
+
+
+
+<script>
+
+
+
+let playing = false;
+const btn = document.getElementById("musicBtn");
+
+btn.addEventListener("click", () => {
+  if (!window.music) return;
+
+  if (window.music.paused) {
+    window.music.play();
+    btn.classList.add("playing");
+    btn.innerHTML = "❚❚";
+  } else {
+    window.music.pause();
+    btn.classList.remove("playing");
+    btn.innerHTML = "♫";
+  }
+});
+</script>
+<script src="music.js"></script>
+
+<script type="module" src="./write.js"></script>
+
+<script>
+let musicStarted = false;
+
+// đảm bảo chỉ tạo 1 audio duy nhất
+if (!window.music) {
+  window.music = new Audio("./music.mp3");
+  window.music.loop = true;
+  window.music.preload = "auto";
+  window.music.volume = 1;
+}
+
+// FIX AUTOPLAY CONFLICT
+function safeStartMusic() {
+  if (musicStarted) return;
+
+  window.music.play()
+    .then(() => {
+      musicStarted = true;
+      console.log("🎵 Music started safely");
+    })
+    .catch(err => {
+      console.log("⛔ Autoplay blocked:", err);
+    });
+}
+
+// chỉ chạy 1 lần khi user click lần đầu
+document.addEventListener("click", () => {
+  safeStartMusic();
+}, { once: true });
+</script>
+
+</body>
+</html>
